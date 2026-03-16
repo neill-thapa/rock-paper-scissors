@@ -23,23 +23,54 @@ function playRound(humanChoice, computerChoice) {
     console.log(`Your choice: ${formattedHumanChoice}`);
     console.log(`Computer's choice: ${computerChoice}`);
     if (formattedHumanChoice === computerChoice) {
-        console.log("The game is a draw...");
+        console.log("Draw...");
+        return 1;
     }
     else if (formattedHumanChoice === "Rock" && computerChoice === "Scissors" ||
                 formattedHumanChoice === "Scissors" && computerChoice === "Paper" ||
                     formattedHumanChoice === "Paper" && computerChoice === "Rock") {
-                        console.log(`You won! ${formattedHumanChoice} beats ${computerChoice}...`);
+                        console.log(`You won the round! ${formattedHumanChoice} beats ${computerChoice}...`);
+                        return 2;
                     }
     else {
-        console.log(`You lost! ${computerChoice} beats ${formattedHumanChoice}...`);
+        console.log(`You lost the round! ${computerChoice} beats ${formattedHumanChoice}...`);
+        return 3;
     }
 }
 
 function playGame() {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
+    const numberOfRounds = 5;
 
-    playRound(humanChoice, computerChoice);
+    let humanScore = 0, computerScore = 0;
+
+    for (let i = 0; i < numberOfRounds; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+
+        console.log(`Round ${i + 1}`);
+        let status = playRound(humanChoice, computerChoice);
+
+        if (status === 2) {
+            humanScore++;
+        }
+        else if (status === 3) {
+            computerScore++;
+        }
+
+        console.log(`Human Score: ${humanScore}, Computer Score: ${computerScore}`); // print the scores to the console
+        console.log("\n");
+    }
+
+    // declare the winner
+    if (humanScore === computerScore) {
+        console.log("The game is a draw...");
+    }
+    else if (humanScore > computerScore) {
+        console.log("Congratulations! You won the game...");
+    }
+    else {
+        console.log("You lost the game! Better luck next time...");
+    }
 }
 
 const button = document.querySelector("#playBtn");
