@@ -39,7 +39,7 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    const numberOfRounds = 5;
+    const numberOfRounds = parseInt(prompt("How many rounds do you want to play?: "));
 
     let humanScore = 0, computerScore = 0;
 
