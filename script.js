@@ -14,7 +14,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let choice = prompt("Rock, Paper, or Scissors?: ");
+    let choice = prompt("Rock, Paper, or Scissors?");
     return choice;
 }
 
@@ -39,7 +39,7 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    const numberOfRounds = parseInt(prompt("How many rounds do you want to play?: "));
+    const numberOfRounds = parseInt(prompt("How many rounds do you want to play?"));
 
     let humanScore = 0, computerScore = 0;
 
