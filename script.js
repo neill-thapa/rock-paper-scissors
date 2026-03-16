@@ -35,7 +35,12 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
+function playGame() {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
 
-playRound(humanChoice, computerChoice);
+    playRound(humanChoice, computerChoice);
+}
+
+const button = document.querySelector("#playBtn");
+button.addEventListener("click", playGame);
