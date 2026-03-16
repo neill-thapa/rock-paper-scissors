@@ -18,8 +18,24 @@ function getHumanChoice() {
     return choice;
 }
 
+function playRound(humanChoice, computerChoice) {
+    let formattedHumanChoice = humanChoice.at(0).toUpperCase() + humanChoice.slice(1).toLowerCase(); // make user input case insensitive
+    console.log(`Your choice: ${formattedHumanChoice}`);
+    console.log(`Computer's choice: ${computerChoice}`);
+    if (formattedHumanChoice === computerChoice) {
+        console.log("The game is a draw...");
+    }
+    else if (formattedHumanChoice === "Rock" && computerChoice === "Scissors" ||
+                formattedHumanChoice === "Scissors" && computerChoice === "Paper" ||
+                    formattedHumanChoice === "Paper" && computerChoice === "Rock") {
+                        console.log(`You won! ${formattedHumanChoice} beats ${computerChoice}...`);
+                    }
+    else {
+        console.log(`You lost! ${computerChoice} beats ${formattedHumanChoice}...`);
+    }
+}
+
 const humanChoice = getHumanChoice();
 const computerChoice = getComputerChoice();
 
-console.log(`Human choice: ${humanChoice}`);
-console.log(`Computer choice: ${computerChoice}`);
+playRound(humanChoice, computerChoice);
