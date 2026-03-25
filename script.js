@@ -18,60 +18,58 @@ function getHumanChoice() {
     return choice;
 }
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
     let formattedHumanChoice = humanChoice.at(0).toUpperCase() + humanChoice.slice(1).toLowerCase(); // make user input case insensitive
-    console.log(`Your choice: ${formattedHumanChoice}`);
-    console.log(`Computer's choice: ${computerChoice}`);
+
+    let roundResult = "";
     if (formattedHumanChoice === computerChoice) {
-        console.log("Draw...");
-        return 1;
+        roundResult = "Draw!";
     }
     else if (formattedHumanChoice === "Rock" && computerChoice === "Scissors" ||
                 formattedHumanChoice === "Scissors" && computerChoice === "Paper" ||
                     formattedHumanChoice === "Paper" && computerChoice === "Rock") {
-                        console.log(`You won the round! ${formattedHumanChoice} beats ${computerChoice}...`);
-                        return 2;
+                        humanScore++;
+                        roundResult = "You won the round!";
                     }
     else {
-        console.log(`You lost the round! ${computerChoice} beats ${formattedHumanChoice}...`);
-        return 3;
+        computerScore++;
+        roundResult = "You lost the round!"
+    }
+
+    // update the DOM
+    resultDiv.textContent = 
+    `Your Choice: ${humanChoice}, Computer's Choice: ${computerChoice} || ${roundResult}`;
+
+    scoreDiv.textContent = `Your Score: ${humanScore} || Computer Score: ${computerScore}`;
+
+    // check if someone reached 10
+    if (humanScore === 5 || computerScore === 5) {
+        const winner = humanScore === 5 ? "Congratulations! You won the game..." : "You lost the game! Better luck next time...";
+        resultDiv.textContent = winner;
+
+        // disable the buttons
+        document.querySelectorAll("button").forEach(btn => btn.disabled = true);
     }
 }
 
-function playGame() {
-    const numberOfRounds = parseInt(prompt("How many rounds do you want to play?"));
+const buttonRock = document.querySelector("#rock");
+buttonRock.addEventListener("click", () => {
+    playRound("Rock");
+});
 
-    let humanScore = 0, computerScore = 0;
+const buttonPaper = document.querySelector("#paper");
+buttonPaper.addEventListener("click", () => {
+    playRound("Paper");
+});
 
-    for (let i = 0; i < numberOfRounds; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
+const buttonScissors = document.querySelector("#scissors");
+buttonScissors.addEventListener("click", () => {
+    playRound("Scissors");
+});
 
-        console.log(`Round ${i + 1}`);
-        let status = playRound(humanChoice, computerChoice);
+let humanScore = 0;
+let computerScore = 0;
 
-        if (status === 2) {
-            humanScore++;
-        }
-        else if (status === 3) {
-            computerScore++;
-        }
-
-        console.log(`Human Score: ${humanScore}, Computer Score: ${computerScore}`); // print the scores to the console
-        console.log("\n");
-    }
-
-    // declare the winner
-    if (humanScore === computerScore) {
-        console.log("The game is a draw...");
-    }
-    else if (humanScore > computerScore) {
-        console.log("Congratulations! You won the game...");
-    }
-    else {
-        console.log("You lost the game! Better luck next time...");
-    }
-}
-
-const button = document.querySelector("#playBtn");
-button.addEventListener("click", playGame);
+const resultDiv = document.querySelector("#result");
+const scoreDiv = document.querySelector("#scores p");
